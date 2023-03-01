@@ -18,12 +18,11 @@ call plug#begin('~/.vim/plugged')
 Plug 'nanotech/jellybeans.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " 42 Header
 Plug '42Paris/42header'
-let g:user42 = 'jfrancai'
-let g:mail42 = 'jfrancai@student.42.fr'
+let g:user42 = 'thi-phng'
+let g:mail42 = 'thi-phng@student.42.fr'
 
 call plug#end()
 
