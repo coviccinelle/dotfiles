@@ -48,7 +48,7 @@ export SHELL=bash
 
 # --- path --- #
 
-export PATH=$SCRIPTS:$PATH:$GO
+export PATH="$HOME/.local/bin/":$SCRIPTS:$PATH:$GO
 
 # --- cdpath --- #
 

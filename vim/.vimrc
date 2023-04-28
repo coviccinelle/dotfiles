@@ -16,8 +16,9 @@ call plug#begin('~/.vim/plugged')
 
 " Theming
 Plug 'nanotech/jellybeans.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'christoomey/vim-tmux-navigator'
 
 " 42 Header
 Plug '42Paris/42header'
@@ -117,7 +118,7 @@ set tabstop=4
 set shiftwidth=4
 
 " Don't wrap lines
-set nowrap
+set wrap
 
 
 "----SEARCH OPTIONS----"
@@ -136,12 +137,37 @@ set smartcase
 
 "----STATUS LINE----"
 
+" Hide status line with Shift-H
+
 " Always display status line
-set laststatus=2
+set laststatus=0
 
-" Custom status line
-" set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
+" Show current mode
+set noshowmode
 
+" Show the line and column number of the cursor position, separated by a comma.
+set noruler
+
+" Set bigger history of executed commands
+set noshowcmd
+
+let s:hidden_all = 1
+
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
 
 "----MAPPINGS----"
 
@@ -171,18 +197,11 @@ let g:netrw_browse_split = 4
 " Default width for netrw window
 let g:netrw_winsize = 30
 
-"----CTAGS----"
-
-set tags=./tags,tags;$HOME
-
-command CreateTags silent !ctags -R .
-autocmd BufWritePost *.c,*.h,*.hpp,*.cpp,*.tpp,*.go,*.py silent !ctags -R . &
-
-"---Buf Enter---"
-" Highlight text in .tpp files as if were .cpp
-autocmd BufEnter *.tpp :setlocal filetype=cpp
-
 "---Utils---"
 source ~/.vim/scripts/vcomments.vim
 map <C-a> :call Comment()<CR>
 map <C-b> :call Uncomment()<CR>
+
+set tag=./tag;
+command CreateTags silent !ctags -R --sort=1 --c++-kinds=+p --fields=+iaS --extras=+q --language-force=C++ .
+
